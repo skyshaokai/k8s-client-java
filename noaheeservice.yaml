@@ -22,7 +22,7 @@ spec:
     shortNames:
     - nees
     singular: noaheeservice
-  preserveUnknownFields: true
+  preserveUnknownFields: false
   scope: Namespaced
   versions:
   - name: v1
