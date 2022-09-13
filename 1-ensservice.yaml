@@ -1,0 +1,211 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.2.4
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{"controller-gen.kubebuilder.io/version":"v0.2.4"},"creationTimestamp":null,"name":"ensservices.eks.baidu.com"},"spec":{"additionalPrinterColumns":[{"JSONPath":".spec.serviceName","description":"noah ens service unit name.","name":"ServiceName","type":"string"},{"JSONPath":".status.phase","description":"noah ens service unit status.","name":"Phase","type":"string"}],"group":"eks.baidu.com","names":{"kind":"EnsService","listKind":"EnsServiceList","plural":"ensservices","shortNames":["ens"],"singular":"ensservice"},"scope":"Namespaced","subresources":{},"validation":{"openAPIV3Schema":{"description":"EnsService is the Schema for the ensservices API","properties":{"apiVersion":{"description":"APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources","type":"string"},"kind":{"description":"Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds","type":"string"},"metadata":{"type":"object"},"spec":{"description":"EnsServiceSpec defines the desired state of EnsService","properties":{"belongService":{"pattern":"^[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+){3}$","type":"string"},"containerName":{"type":"string"},"containersReady":{"items":{"type":"string"},"type":"array"},"deployPath":{"description":"DeployPath defines deploy path used in ens instance","properties":{"containerPath":{"type":"string"},"emptyDirVolumName":{"type":"string"},"hostPathVolumName":{"type":"string"}},"type":"object"},"enableSyncEKSTags":{"description":"if EnableSyncEKSTags is true , eks will automatically sync hostIP tag and containerID tag to ens","type":"boolean"},"groupsConfig":{"description":"GroupsConfig defines the configuration of service groups","properties":{"groups":{"items":{"description":"Group defines the configuration of the service group","properties":{"account":{"type":"string"},"name":{"type":"string"},"user":{"type":"string"}},"required":["name"],"type":"object"},"type":"array"}},"type":"object"},"ignoreTerminating":{"type":"boolean"},"pause":{"type":"boolean"},"podLabelsToTags":{"type":"boolean"},"podReady":{"type":"boolean"},"portNames":{"additionalProperties":{"type":"string"},"type":"object"},"runUser":{"type":"string"},"selector":{"description":"A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects.","properties":{"matchExpressions":{"description":"matchExpressions is a list of label selector requirements. The requirements are ANDed.","items":{"description":"A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.","properties":{"key":{"description":"key is the label key that the selector applies to.","type":"string"},"operator":{"description":"operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.","type":"string"},"values":{"description":"values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.","items":{"type":"string"},"type":"array"}},"required":["key","operator"],"type":"object"},"type":"array"},"matchLabels":{"additionalProperties":{"type":"string"},"description":"matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is \"key\", the operator is \"In\", and the values array contains only \"value\". The requirements are ANDed.","type":"object"}},"type":"object"},"serviceName":{"pattern":"^[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+){2}$","type":"string"},"tags":{"additionalProperties":{"type":"string"},"type":"object"}},"required":["belongService","containerName","selector","serviceName"],"type":"object"},"status":{"description":"EnsServiceStatus defines the observed state of EnsService","properties":{"groupsStatus":{"additionalProperties":{"type":"string"},"type":"object"},"parentPath":{"type":"string"},"phase":{"type":"string"}},"required":["phase"],"type":"object"}},"type":"object"}},"version":"v1","versions":[{"name":"v1","served":true,"storage":true}]},"status":{"acceptedNames":{"kind":"","plural":""},"conditions":[],"storedVersions":[]}}
+  creationTimestamp: "2022-02-22T13:49:18Z"
+  generation: 2
+  name: ensservices.eks.baidu.com
+  resourceVersion: "58620669"
+  selfLink: /apis/apiextensions.k8s.io/v1/customresourcedefinitions/ensservices.eks.baidu.com
+  uid: df4b4080-4eb4-4a03-b602-9816ac51c02a
+spec:
+  conversion:
+    strategy: None
+  group: eks.baidu.com
+  names:
+    kind: EnsService
+    listKind: EnsServiceList
+    plural: ensservices
+    shortNames:
+    - ens
+    singular: ensservice
+  preserveUnknownFields: true
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: noah ens service unit name.
+      jsonPath: .spec.serviceName
+      name: ServiceName
+      type: string
+    - description: noah ens service unit status.
+      jsonPath: .status.phase
+      name: Phase
+      type: string
+    name: v1
+    schema:
+      openAPIV3Schema:
+        description: EnsService is the Schema for the ensservices API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: EnsServiceSpec defines the desired state of EnsService
+            properties:
+              belongService:
+                pattern: ^[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+){3}$
+                type: string
+              containerName:
+                type: string
+              containersReady:
+                items:
+                  type: string
+                type: array
+              deployPath:
+                description: DeployPath defines deploy path used in ens instance
+                properties:
+                  containerPath:
+                    type: string
+                  emptyDirVolumName:
+                    type: string
+                  hostPathVolumName:
+                    type: string
+                type: object
+              enableSyncEKSTags:
+                description: if EnableSyncEKSTags is true , eks will automatically
+                  sync hostIP tag and containerID tag to ens
+                type: boolean
+              groupsConfig:
+                description: GroupsConfig defines the configuration of service groups
+                properties:
+                  groups:
+                    items:
+                      description: Group defines the configuration of the service
+                        group
+                      properties:
+                        account:
+                          type: string
+                        name:
+                          type: string
+                        user:
+                          type: string
+                      required:
+                      - name
+                      type: object
+                    type: array
+                type: object
+              ignoreTerminating:
+                type: boolean
+              pause:
+                type: boolean
+              podLabelsToTags:
+                type: boolean
+              podReady:
+                type: boolean
+              portNames:
+                additionalProperties:
+                  type: string
+                type: object
+              runUser:
+                type: string
+              selector:
+                description: A label selector is a label query over a set of resources.
+                  The result of matchLabels and matchExpressions are ANDed. An empty
+                  label selector matches all objects. A null label selector matches
+                  no objects.
+                properties:
+                  matchExpressions:
+                    description: matchExpressions is a list of label selector requirements.
+                      The requirements are ANDed.
+                    items:
+                      description: A label selector requirement is a selector that
+                        contains values, a key, and an operator that relates the key
+                        and values.
+                      properties:
+                        key:
+                          description: key is the label key that the selector applies
+                            to.
+                          type: string
+                        operator:
+                          description: operator represents a key's relationship to
+                            a set of values. Valid operators are In, NotIn, Exists
+                            and DoesNotExist.
+                          type: string
+                        values:
+                          description: values is an array of string values. If the
+                            operator is In or NotIn, the values array must be non-empty.
+                            If the operator is Exists or DoesNotExist, the values
+                            array must be empty. This array is replaced during a strategic
+                            merge patch.
+                          items:
+                            type: string
+                          type: array
+                      required:
+                      - key
+                      - operator
+                      type: object
+                    type: array
+                  matchLabels:
+                    additionalProperties:
+                      type: string
+                    description: matchLabels is a map of {key,value} pairs. A single
+                      {key,value} in the matchLabels map is equivalent to an element
+                      of matchExpressions, whose key field is "key", the operator
+                      is "In", and the values array contains only "value". The requirements
+                      are ANDed.
+                    type: object
+                type: object
+              serviceName:
+                pattern: ^[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+){2}$
+                type: string
+              tags:
+                additionalProperties:
+                  type: string
+                type: object
+            required:
+            - belongService
+            - containerName
+            - selector
+            - serviceName
+            type: object
+          status:
+            description: EnsServiceStatus defines the observed state of EnsService
+            properties:
+              groupsStatus:
+                additionalProperties:
+                  type: string
+                type: object
+              parentPath:
+                type: string
+              phase:
+                type: string
+            required:
+            - phase
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources: {}
+status:
+  acceptedNames:
+    kind: EnsService
+    listKind: EnsServiceList
+    plural: ensservices
+    shortNames:
+    - ens
+    singular: ensservice
+  conditions:
+  - lastTransitionTime: "2022-02-22T13:49:18Z"
+    message: no conflicts found
+    reason: NoConflicts
+    status: "True"
+    type: NamesAccepted
+  - lastTransitionTime: "2022-02-22T13:49:18Z"
+    message: the initial names have been accepted
+    reason: InitialNamesAccepted
+    status: "True"
+    type: Established
+  storedVersions:
+  - v1
