@@ -22,7 +22,7 @@ spec:
     shortNames:
     - ens
     singular: ensservice
-  preserveUnknownFields: true
+  preserveUnknownFields: false
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
