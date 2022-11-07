@@ -22,7 +22,7 @@ spec:
     shortNames:
     - crr
     singular: containerrestartrequest
-  preserveUnknownFields: true
+  preserveUnknownFields: false
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
