@@ -1,0 +1,193 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.2.4
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apiextensions.k8s.io/v1beta1","kind":"CustomResourceDefinition","metadata":{"annotations":{"controller-gen.kubebuilder.io/version":"v0.2.4"},"creationTimestamp":null,"name":"containerrestartrequests.ops.eks.baidu.com"},"spec":{"additionalPrinterColumns":[{"JSONPath":".status.phase","description":"Phase of this ContainerRestartRequest.","name":"PHASE","type":"string"},{"JSONPath":".spec.podName","description":"Pod name of this ContainerRestartRequest.","name":"POD","type":"string"},{"JSONPath":".metadata.creationTimestamp","description":"CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.","name":"AGE","type":"date"}],"group":"ops.eks.baidu.com","names":{"kind":"ContainerRestartRequest","listKind":"ContainerRestartRequestList","plural":"containerrestartrequests","shortNames":["crr"],"singular":"containerrestartrequest"},"scope":"Namespaced","subresources":{"status":{}},"validation":{"openAPIV3Schema":{"description":"ContainerRestartRequest is the Schema for the containerrestartrequests API","properties":{"apiVersion":{"description":"APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources","type":"string"},"kind":{"description":"Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds","type":"string"},"metadata":{"type":"object"},"spec":{"description":"ContainerRestartRequestSpec defines the desired container restart request","properties":{"activeDeadlineSeconds":{"description":"If the CRR execution exceeds this time, it will be directly marked as finished and restored to the backup image (containers that are not finished will be marked as failed) default is 5m","format":"int64","type":"integer"},"containers":{"items":{"description":"ContainerRestart define the container to be restarted","properties":{"emptyImage":{"description":"Empty image to support restart","type":"string"},"name":{"description":"container name","pattern":"[a-zA-Z0-9-]+","type":"string"}},"required":["name"],"type":"object"},"type":"array"},"podName":{"description":"pod name to restart","pattern":"[a-zA-Z0-9-]+","type":"string"},"podReady":{"description":"Whether to wait for pod ready to end the restart request. The default is false","type":"boolean"},"strategy":{"description":"ContainerRestartStrategy Orchestration strategy when multiple containers restart","properties":{"failurePolicy":{"description":"'fail' or 'ignore' means that once a container stops or fails to rebuild, the CRR will end immediately. The default is fail","type":"string"},"orderedRestart":{"description":"'true 'means to wait until the previous container is rebuilt before starting to rebuild the next one.","type":"boolean"}},"type":"object"},"ttlSecondsAfterFinished":{"description":"TTLSecondsAfterFinished is the TTL duration after this ContainerRestartRequest has completed. default is 2d","format":"int64","type":"integer"}},"required":["containers","podName"],"type":"object"},"status":{"description":"ContainerRestartRequestStatus defines the observed state of ContainerRestartRequest","properties":{"completionTime":{"description":"Represents time when the ContainerRestartRequest was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC.","format":"date-time","type":"string"},"containerRestartStates":{"description":"ContainerRestartStates contains the recreation states of the containers.","items":{"description":"ContainerRestartRequestContainerRestartState contains the recreation state of the container.","properties":{"backupImage":{"type":"string"},"emptyImage":{"type":"string"},"message":{"description":"A human readable message indicating details about this state.","type":"string"},"name":{"description":"Name of the container.","type":"string"},"phase":{"description":"Phase indicates the recreation phase of the container.","type":"string"}},"required":["name","phase"],"type":"object"},"type":"array"},"message":{"description":"A human readable message indicating details about this ContainerRestartRequest.","type":"string"},"phase":{"description":"Phase of this ContainerRestartRequest, e.g. Pending, Recreating, Completed","type":"string"},"uid":{"type":"string"}},"required":["phase"],"type":"object"}},"type":"object"}},"version":"v1alpha1","versions":[{"name":"v1alpha1","served":true,"storage":true}]},"status":{"acceptedNames":{"kind":"","plural":""},"conditions":[],"storedVersions":[]}}
+  creationTimestamp: "2022-10-17T08:47:56Z"
+  generation: 1
+  name: containerrestartrequests.ops.eks.baidu.com
+  resourceVersion: "725296"
+  selfLink: /apis/apiextensions.k8s.io/v1/customresourcedefinitions/containerrestartrequests.ops.eks.baidu.com
+  uid: 23e65e9d-1b50-414b-91d3-2eca7088aa42
+spec:
+  conversion:
+    strategy: None
+  group: ops.eks.baidu.com
+  names:
+    kind: ContainerRestartRequest
+    listKind: ContainerRestartRequestList
+    plural: containerrestartrequests
+    shortNames:
+    - crr
+    singular: containerrestartrequest
+  preserveUnknownFields: true
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: Phase of this ContainerRestartRequest.
+      jsonPath: .status.phase
+      name: PHASE
+      type: string
+    - description: Pod name of this ContainerRestartRequest.
+      jsonPath: .spec.podName
+      name: POD
+      type: string
+    - description: CreationTimestamp is a timestamp representing the server time when
+        this object was created. It is not guaranteed to be set in happens-before
+        order across separate operations. Clients may not set this value. It is represented
+        in RFC3339 form and is in UTC.
+      jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: ContainerRestartRequest is the Schema for the containerrestartrequests
+          API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ContainerRestartRequestSpec defines the desired container
+              restart request
+            properties:
+              activeDeadlineSeconds:
+                description: If the CRR execution exceeds this time, it will be directly
+                  marked as finished and restored to the backup image (containers
+                  that are not finished will be marked as failed) default is 5m
+                format: int64
+                type: integer
+              containers:
+                items:
+                  description: ContainerRestart define the container to be restarted
+                  properties:
+                    emptyImage:
+                      description: Empty image to support restart
+                      type: string
+                    name:
+                      description: container name
+                      pattern: '[a-zA-Z0-9-]+'
+                      type: string
+                  required:
+                  - name
+                  type: object
+                type: array
+              podName:
+                description: pod name to restart
+                pattern: '[a-zA-Z0-9-]+'
+                type: string
+              podReady:
+                description: Whether to wait for pod ready to end the restart request.
+                  The default is false
+                type: boolean
+              strategy:
+                description: ContainerRestartStrategy Orchestration strategy when
+                  multiple containers restart
+                properties:
+                  failurePolicy:
+                    description: '''fail'' or ''ignore'' means that once a container
+                      stops or fails to rebuild, the CRR will end immediately. The
+                      default is fail'
+                    type: string
+                  orderedRestart:
+                    description: '''true ''means to wait until the previous container
+                      is rebuilt before starting to rebuild the next one.'
+                    type: boolean
+                type: object
+              ttlSecondsAfterFinished:
+                description: TTLSecondsAfterFinished is the TTL duration after this
+                  ContainerRestartRequest has completed. default is 2d
+                format: int64
+                type: integer
+            required:
+            - containers
+            - podName
+            type: object
+          status:
+            description: ContainerRestartRequestStatus defines the observed state
+              of ContainerRestartRequest
+            properties:
+              completionTime:
+                description: Represents time when the ContainerRestartRequest was
+                  completed. It is not guaranteed to be set in happens-before order
+                  across separate operations. It is represented in RFC3339 form and
+                  is in UTC.
+                format: date-time
+                type: string
+              containerRestartStates:
+                description: ContainerRestartStates contains the recreation states
+                  of the containers.
+                items:
+                  description: ContainerRestartRequestContainerRestartState contains
+                    the recreation state of the container.
+                  properties:
+                    backupImage:
+                      type: string
+                    emptyImage:
+                      type: string
+                    message:
+                      description: A human readable message indicating details about
+                        this state.
+                      type: string
+                    name:
+                      description: Name of the container.
+                      type: string
+                    phase:
+                      description: Phase indicates the recreation phase of the container.
+                      type: string
+                  required:
+                  - name
+                  - phase
+                  type: object
+                type: array
+              message:
+                description: A human readable message indicating details about this
+                  ContainerRestartRequest.
+                type: string
+              phase:
+                description: Phase of this ContainerRestartRequest, e.g. Pending,
+                  Recreating, Completed
+                type: string
+              uid:
+                type: string
+            required:
+            - phase
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ContainerRestartRequest
+    listKind: ContainerRestartRequestList
+    plural: containerrestartrequests
+    shortNames:
+    - crr
+    singular: containerrestartrequest
+  conditions:
+  - lastTransitionTime: "2022-10-17T08:47:56Z"
+    message: no conflicts found
+    reason: NoConflicts
+    status: "True"
+    type: NamesAccepted
+  - lastTransitionTime: "2022-10-17T08:48:02Z"
+    message: the initial names have been accepted
+    reason: InitialNamesAccepted
+    status: "True"
+    type: Established
+  storedVersions:
+  - v1alpha1
